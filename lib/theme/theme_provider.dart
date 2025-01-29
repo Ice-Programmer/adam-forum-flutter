@@ -1,5 +1,6 @@
 import 'package:adam_forum_app/theme/dark_theme.dart';
 import 'package:adam_forum_app/theme/light_theme.dart';
+import 'package:adam_forum_app/utils/log_util.dart';
 import 'package:flutter/material.dart';
 
 class ThemeProvider with ChangeNotifier {

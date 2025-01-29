@@ -1,7 +1,6 @@
-import 'package:adam_forum_app/pages/welcome/welcome_page.dart';
+import 'package:adam_forum_app/route/routes.dart';
 import 'package:adam_forum_app/theme/dark_theme.dart';
 import 'package:adam_forum_app/theme/theme_provider.dart';
-import 'package:adam_forum_app/utils/toast_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -35,12 +34,11 @@ class _AppState extends State<App> {
     return ScreenUtilInit(
       designSize: designSize,
       builder: (context, child) {
-        return MaterialApp(
-          navigatorKey: ToastUtils.navigatorKey,
+        return MaterialApp.router(
+          routerConfig: router,
           debugShowCheckedModeBanner: false,
           theme: Provider.of<ThemeProvider>(context, listen: true).themeData,
           darkTheme: darkMode,
-          home: const WelcomePage(),
         );
       },
     );

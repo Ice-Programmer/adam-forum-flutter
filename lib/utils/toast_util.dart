@@ -6,10 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_icons/line_icons.dart';
 
 class ToastUtils {
-  static final navigatorKey = GlobalKey<NavigatorState>();
-
-  static BuildContext get context => navigatorKey.currentContext!;
-
   static const Color successColor = Color(0xFF75FB4C);
   static const Color errorColor = Color(0xFFEA3323);
 
