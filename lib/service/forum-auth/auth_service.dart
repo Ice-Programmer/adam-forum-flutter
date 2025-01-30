@@ -7,18 +7,25 @@ import 'package:dio/dio.dart';
 class AuthService {
   final DioInstance _dioInstance = DioInstance.instance();
 
-  Future<BaseResponse<TokenVO>> userPasswordLogin(
-      UserPasswordLoginRequest request) async {
+  Future<TokenVO> userPasswordLogin(UserPasswordLoginRequest request) async {
     try {
       final response = await _dioInstance.post(
         path: '/forum-auth/auth/login/password',
         data: request.toJson(),
         options: Options(contentType: 'application/json'),
       );
-      return BaseResponse.fromJson(
+
+      final baseResponse = BaseResponse.fromJson(
         response.data,
-            (json) => TokenVO.fromJson(json),
+        (json) => TokenVO.fromJson(json),
       );
+
+      if (baseResponse.code == 200 && baseResponse.data != null) {
+        return baseResponse.data!;
+      } else {
+        // 抛出业务异常
+        throw Exception('登录失败: ${baseResponse.message}');
+      }
     } on DioException catch (e) {
       throw Exception('Network error: ${e.message}');
     }

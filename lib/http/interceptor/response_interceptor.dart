@@ -1,8 +1,4 @@
-import 'package:adam_forum_app/route/routes.dart';
 import 'package:adam_forum_app/utils/toast_util.dart';
-import 'package:delightful_toast/delight_toast.dart';
-import 'package:delightful_toast/toast/components/toast_card.dart';
-import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -39,9 +35,8 @@ class ResponseInterceptor extends Interceptor {
     } else if (err.type == DioExceptionType.unknown) {
       errorMessage = "未知错误，请重试";
     }
+    ToastUtils.showErrorMsg(errorMessage);
     debugPrint(errorMessage);
-    // 显示错误消息
-    // ToastUtils.showErrorMsg(errorMessage);
     // 使用handler.next继续传递错误
     return handler.next(err);
   }

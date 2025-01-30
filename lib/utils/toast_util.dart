@@ -20,22 +20,23 @@ class ToastUtils {
   /// 显示成功吐司
   /// [msg] 消息
   /// [icon] 图标
-  static showSuccessMsg(String msg, {IconData? icon}) {
+  static showSuccessMsg(String message, {IconData? icon}) {
     DelightToastBar(
       autoDismiss: true,
       position: DelightSnackbarPosition.top,
+      snackbarDuration: const Duration(milliseconds: 2000),
       builder: (context) => ToastCard(
-        title: Text(
-          msg,
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14.sp),
-        ),
         leading: Icon(
-          icon ?? successIcon,
+          icon ?? Icons.info_sharp,
           color: successColor,
           size: 20.r,
         ),
+        title: Text(
+          message ?? '请求成功',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
+        ),
       ),
-    );
+    ).show(context);
   }
 
   /// 显示错误吐司
@@ -63,20 +64,22 @@ class ToastUtils {
   /// 显示提示吐司
   /// [msg] 消息
   /// [icon] 图标
-  static showInfoMsg(String msg, {IconData? icon}) {
+  static showInfoMsg(String message, {IconData? icon}) {
     DelightToastBar(
       autoDismiss: true,
       position: DelightSnackbarPosition.top,
+      snackbarDuration: const Duration(milliseconds: 2000),
       builder: (context) => ToastCard(
-        title: Text(
-          msg,
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14.sp),
-        ),
         leading: Icon(
-          icon ?? infoIcon,
+          icon ?? Icons.info_sharp,
+          color: successColor,
           size: 20.r,
         ),
+        title: Text(
+          message ?? '请求成功',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
+        ),
       ),
-    );
+    ).show(context);
   }
 }

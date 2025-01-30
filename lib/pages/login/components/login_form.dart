@@ -1,7 +1,11 @@
 import 'package:adam_forum_app/components/custom_button.dart';
 import 'package:adam_forum_app/components/custom_input.dart';
+import 'package:adam_forum_app/model/forum_auth/login/token_vo.dart';
 import 'package:adam_forum_app/model/forum_auth/login/user_password_login_request.dart';
 import 'package:adam_forum_app/service/forum-auth/auth_service.dart';
+import 'package:adam_forum_app/utils/log_util.dart';
+import 'package:adam_forum_app/utils/store_util.dart';
+import 'package:adam_forum_app/utils/toast_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -103,7 +107,14 @@ class LoginForum extends StatelessWidget {
     );
   }
 
+  /// 处理登录逻辑
   Future<void> _handleLogin(BuildContext context) async {
-    final response = await _authService.userPasswordLogin(_userPasswordLoginRequest);
+    TokenVO tokenVO =
+        await _authService.userPasswordLogin(_userPasswordLoginRequest);
+    // 存储 token
+    String token = tokenVO.accessToken;
+    StoreUtil.saveToken(token);
+    LogUtils.println('登录成功，存储 token：$token');
+    ToastUtils.showSuccessMsg("登录成功！");
   }
 }
