@@ -1,6 +1,7 @@
 import 'package:adam_forum_app/components/custom_button.dart';
 import 'package:adam_forum_app/components/custom_input.dart';
 import 'package:adam_forum_app/model/forum_auth/login/user_password_login_request.dart';
+import 'package:adam_forum_app/service/forum-auth/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -11,6 +12,7 @@ class LoginForum extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final UserPasswordLoginRequest _userPasswordLoginRequest =
       UserPasswordLoginRequest();
+  final AuthService _authService = AuthService(); // 创建 AuthService 实例
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +72,7 @@ class LoginForum extends StatelessWidget {
               CustomButton(
                 title: "登录",
                 onPressed: () {
-                  print('account: ${_userPasswordLoginRequest.userAccount}');
-                  print('password: ${_userPasswordLoginRequest.userPassword}');
+                  _handleLogin(context);
                 },
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 textColor: Colors.white,
@@ -100,5 +101,9 @@ class LoginForum extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Future<void> _handleLogin(BuildContext context) async {
+    final response = await _authService.userPasswordLogin(_userPasswordLoginRequest);
   }
 }

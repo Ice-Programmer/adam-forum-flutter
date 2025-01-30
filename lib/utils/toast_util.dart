@@ -6,6 +6,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_icons/line_icons.dart';
 
 class ToastUtils {
+  static final navigatorKey = GlobalKey<NavigatorState>();
+
+  static BuildContext get context => navigatorKey.currentContext!;
+
   static const Color successColor = Color(0xFF75FB4C);
   static const Color errorColor = Color(0xFFEA3323);
 
@@ -37,22 +41,23 @@ class ToastUtils {
   /// 显示错误吐司
   /// [msg] 消息
   /// [icon] 图标
-  static showErrorMsg(String msg, {IconData? icon}) {
+  static showErrorMsg(String message, {IconData? icon}) {
     DelightToastBar(
       autoDismiss: true,
       position: DelightSnackbarPosition.top,
+      snackbarDuration: const Duration(milliseconds: 2000),
       builder: (context) => ToastCard(
-        title: Text(
-          msg,
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14.sp),
-        ),
         leading: Icon(
-          icon ?? errorIcon,
+          icon ?? Icons.error_sharp,
           color: errorColor,
           size: 20.r,
         ),
+        title: Text(
+          message ?? '请求失败',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
+        ),
       ),
-    );
+    ).show(context);
   }
 
   /// 显示提示吐司
