@@ -1,14 +1,27 @@
+import 'package:adam_forum_app/pages/login/login_page.dart';
+import 'package:adam_forum_app/pages/register/register_page.dart';
 import 'package:adam_forum_app/pages/welcome/welcome_page.dart';
 import 'package:go_router/go_router.dart';
 
-
 final GoRouter router = GoRouter(
-
   routes: [
     GoRoute(
       path: '/', // 根路径
-      builder: (context, state) => const WelcomePage(),
+      name: '欢迎页',
+      pageBuilder: (context, state) =>
+          const NoTransitionPage(child: WelcomePage()),
+    ),
+    GoRoute(
+      path: "/login",
+      name: "登录页",
+      pageBuilder: (context, state) =>
+          const NoTransitionPage(child: LoginPage()),
+    ),
+    GoRoute(
+      path: "/register",
+      name: "注册页",
+      pageBuilder: (context, state) =>
+      const NoTransitionPage(child: RegisterPage()),
     ),
   ],
 );
-

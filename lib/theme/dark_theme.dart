@@ -8,7 +8,7 @@ ThemeData darkMode = ThemeData(
   colorScheme: ColorScheme.dark(
     primary: const Color(0xFF1F41BB),
     onPrimary: Colors.white,
-    secondary: const Color(0xFFA8C1D2).withOpacity(0.25),
+    secondary: const Color(0xFFF1F4FF),
     tertiary: const Color(0xFFEE4667),
     inversePrimary: Colors.grey.shade600,
     inverseSurface: Colors.black87,
