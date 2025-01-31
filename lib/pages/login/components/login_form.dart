@@ -116,5 +116,6 @@ class LoginForum extends StatelessWidget {
     StoreUtil.saveToken(token);
     LogUtils.println('登录成功，存储 token：$token');
     ToastUtils.showSuccessMsg("登录成功！");
+    context.go("/forum");
   }
 }

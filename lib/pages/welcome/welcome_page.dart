@@ -1,5 +1,6 @@
 import 'package:adam_forum_app/components/custom_button.dart';
 import 'package:adam_forum_app/layouts/login_layout.dart';
+import 'package:adam_forum_app/utils/store_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,6 +14,16 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
+  @override
+  void initState() async {
+    super.initState();
+    // 判断是否登录
+    String? token = await StoreUtil.getToken();
+    if (token != null) {
+      context.go("/forum");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return LoginLayout(
