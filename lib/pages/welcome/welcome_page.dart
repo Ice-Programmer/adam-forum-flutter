@@ -15,11 +15,17 @@ class WelcomePage extends StatefulWidget {
 
 class _WelcomePageState extends State<WelcomePage> {
   @override
-  void initState() async {
+  void initState() {
     super.initState();
+    _checkLoginStatus();
+  }
+
+  // 单独的异步方法
+  Future<void> _checkLoginStatus() async {
     // 判断是否登录
     String? token = await StoreUtil.getToken();
-    if (token != null) {
+    // 检查当前组件是否仍然挂载
+    if (token != null && mounted) {
       context.go("/forum");
     }
   }

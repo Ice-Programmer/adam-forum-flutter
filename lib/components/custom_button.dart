@@ -10,10 +10,11 @@ class CustomButton extends StatelessWidget {
   final double btnWidth;
   final double btnHeight;
   final double fontSize;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final double borderRadius;
   final bool isShadow;
   final FontWeight fontWeight;
+  final bool disable;
 
   const CustomButton({
     super.key,
@@ -21,7 +22,7 @@ class CustomButton extends StatelessWidget {
     this.icon,
     this.iconGap,
     this.backgroundColor,
-    required this.onPressed,
+    this.onPressed,
     required this.textColor,
     required this.btnWidth,
     required this.btnHeight,
@@ -29,6 +30,7 @@ class CustomButton extends StatelessWidget {
     this.borderRadius = 10,
     this.isShadow = true,
     this.fontWeight = FontWeight.bold,
+    this.disable = false,
   });
 
   @override
@@ -58,6 +60,8 @@ class CustomButton extends StatelessWidget {
         ),
         onPressed: onPressed,
         color: backgroundColor,
+        // elevation: 3,
+        elevation: 0,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

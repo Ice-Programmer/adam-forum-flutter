@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// 自定义输入框
 class CustomInput extends StatefulWidget {
@@ -9,10 +8,13 @@ class CustomInput extends StatefulWidget {
   final String? hintText;
   final double horizontalPadding;
   final double fontSize;
+  final Color? backgroundColor;
   final int maxLines;
   final bool isPassword;
   final String? Function(String?)? validator;
   final ValueChanged<String>? onChanged;
+  final IconData? prefixIcon;
+  final double prefixGap;
 
   const CustomInput({
     super.key,
@@ -21,11 +23,14 @@ class CustomInput extends StatefulWidget {
     this.borderRadius = 10,
     this.hintText,
     this.horizontalPadding = 20,
-    required this.fontSize,
+    this.fontSize = 16,
     this.maxLines = 1,
     this.isPassword = false,
     this.validator,
     this.onChanged,
+    this.backgroundColor,
+    this.prefixIcon,
+    this.prefixGap = 20,
   });
 
   @override
@@ -43,7 +48,8 @@ class _CustomInputState extends State<CustomInput> {
       height: widget.height,
       width: widget.width,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary,
+        color:
+            widget.backgroundColor ?? Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.circular(widget.borderRadius),
       ),
       child: TextFormField(
@@ -63,6 +69,11 @@ class _CustomInputState extends State<CustomInput> {
           hintStyle: TextStyle(
             fontSize: widget.fontSize,
             color: Theme.of(context).colorScheme.inversePrimary,
+          ),
+          prefixIconColor: Theme.of(context).colorScheme.inversePrimary,
+          prefixIconConstraints: BoxConstraints(
+            minWidth: widget.prefixGap, // 设置最小宽度，控制间距
+            minHeight: widget.height, // 设置最小高度，与输入框高度一致
           ),
           hintText: widget.hintText,
           suffixIcon: widget.isPassword
