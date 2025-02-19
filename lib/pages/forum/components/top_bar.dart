@@ -1,6 +1,5 @@
 import 'package:adam_forum_app/components/cache_image.dart';
 import 'package:adam_forum_app/components/custom_button.dart';
-import 'package:adam_forum_app/components/custom_input.dart';
 import 'package:adam_forum_app/model/forum_user/user/user_basic_info_vo.dart';
 import 'package:adam_forum_app/pages/forum/components/top_search_button.dart';
 import 'package:flutter/material.dart';

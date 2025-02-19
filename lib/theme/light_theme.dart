@@ -14,6 +14,6 @@ ThemeData lightMode = ThemeData(
     inversePrimary: Colors.grey.shade600,
     inverseSurface: Colors.grey.shade200,
     onInverseSurface: Colors.grey.shade100,
-    surfaceContainer: Colors.grey.shade300,
+    surfaceContainer: const Color(0xFFFCFCFC),
   ),
 );

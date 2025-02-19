@@ -23,14 +23,17 @@ class CacheImage extends StatelessWidget {
         height: height,
         width: width,
         fit: BoxFit.cover,
-
-        placeholder: (BuildContext context,
-            String url,) =>
+        placeholder: (
+          BuildContext context,
+          String url,
+        ) =>
             Container(color: Colors.grey[200]),
-        errorWidget: (BuildContext context,
-            String url,
-            dynamic error,) =>
-        const Icon(Icons.error),
+        errorWidget: (
+          BuildContext context,
+          String url,
+          dynamic error,
+        ) =>
+            const Icon(Icons.error),
         imageUrl: imageUrl,
       ),
     );
