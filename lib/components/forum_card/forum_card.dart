@@ -1,6 +1,9 @@
 import 'package:adam_forum_app/components/cache_image.dart';
 import 'package:adam_forum_app/components/animated_icon_button.dart';
 import 'package:adam_forum_app/model/forum_post/post/post_vo.dart';
+import 'package:adam_forum_app/model/forum_post/post/request/post_favour_request.dart';
+import 'package:adam_forum_app/model/forum_post/post/request/post_thumb_request.dart';
+import 'package:adam_forum_app/service/forum-post/post_service.dart';
 import 'package:adam_forum_app/utils/time_util.dart';
 import 'package:adam_forum_app/utils/toast_util.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -17,14 +20,19 @@ class ForumCard extends StatefulWidget {
 }
 
 class _ForumCardState extends State<ForumCard> {
+  final PostService _postService = PostService();
   bool _isLiked = false;
+  int _likeNum = 0;
   bool _isStar = false;
+  int _starNum = 0;
 
   @override
   void initState() {
     super.initState();
     _isLiked = widget.postVo.hasThumb;
     _isStar = widget.postVo.hasFavour;
+    _likeNum = widget.postVo.thumbNum;
+    _starNum = widget.postVo.favourNum;
   }
 
   @override
@@ -175,7 +183,36 @@ class _ForumCardState extends State<ForumCard> {
     );
   }
 
-  /// 底部信息栏
+  /// 点赞请求
+  Future<void> _doThumb() async {
+    PostThumbRequest request =
+        PostThumbRequest(postId: int.parse(widget.postVo.id));
+    int status = await _postService.doThumb(request);
+    setState(() {
+      _isLiked = !_isLiked;
+      if (status == 1) {
+        _likeNum = _likeNum + 1;
+      } else if (status == -1) {
+        _likeNum = _likeNum - 1;
+      }
+    });
+  }
+
+  /// 收藏请求
+  Future<void> _doStar() async {
+    PostFavourRequest request =
+        PostFavourRequest(postId: int.parse(widget.postVo.id));
+    int status = await _postService.doFavour(request);
+    setState(() {
+      _isStar = !_isStar;
+      if (status == 1) {
+        _starNum = _starNum + 1;
+      } else if (status == -1) {
+        _starNum = _starNum - 1;
+      }
+    });
+  }
+
   /// 底部信息栏
   Widget _getBottomInfo(BuildContext context) {
     return Row(
@@ -191,11 +228,9 @@ class _ForumCardState extends State<ForumCard> {
             unselectedAnimateIcon: Icons.heart_broken_rounded,
             selectedColor: Colors.red,
             unselectedColor: Colors.grey,
-            onPressed: () => setState(() {
-              _isLiked = !_isLiked;
-            }),
+            onPressed: _doThumb,
           ),
-          text: widget.postVo.thumbNum.toString(),
+          text: _likeNum.toString(),
         ),
 
         // 收藏按钮
@@ -207,9 +242,9 @@ class _ForumCardState extends State<ForumCard> {
             unselectedIcon: Icons.star_outline_rounded,
             selectedColor: Colors.amber,
             unselectedColor: Colors.grey,
-            onPressed: () => setState(() => _isStar = !_isStar),
+            onPressed: _doStar,
           ),
-          text: widget.postVo.favourNum.toString(),
+          text: _starNum.toString(),
         ),
 
         // 评论按钮

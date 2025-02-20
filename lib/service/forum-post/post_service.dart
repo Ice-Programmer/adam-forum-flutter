@@ -1,9 +1,14 @@
+import 'dart:convert';
+
 import 'package:adam_forum_app/http/base_response.dart';
 import 'package:adam_forum_app/http/dio_instance.dart';
 import 'package:adam_forum_app/http/http_constant.dart';
 import 'package:adam_forum_app/model/constant/page_model.dart';
 import 'package:adam_forum_app/model/forum_post/post/post_vo.dart';
+import 'package:adam_forum_app/model/forum_post/post/request/post_favour_request.dart';
 import 'package:adam_forum_app/model/forum_post/post/request/post_query_request.dart';
+import 'package:adam_forum_app/model/forum_post/post/request/post_thumb_request.dart';
+import 'package:adam_forum_app/utils/toast_util.dart';
 import 'package:dio/dio.dart';
 
 class PostService {
@@ -32,7 +37,60 @@ class PostService {
         return baseResponse.data!;
       } else {
         // 抛出业务异常
-        throw Exception('登录失败: ${baseResponse.message}');
+        throw Exception('获取帖子分页: ${baseResponse.message}');
+      }
+    } on DioException catch (e) {
+      throw Exception('Network error: ${e.message}');
+    }
+  }
+
+  /// 帖子点赞请求
+  Future<int> doThumb(PostThumbRequest postThumbRequest) async {
+    try {
+      final response = await _dioInstance.post(
+        service: HttpConstant.postService,
+        path: '/post/thumb',
+        data: postThumbRequest.toJson(),
+      );
+
+      // 解析整体响应数据
+      final baseResponse = BaseResponse<int>.fromJson(
+        response.data,
+        (json) => json,
+      );
+      if (baseResponse.code == HttpConstant.successCode &&
+          baseResponse.data != null) {
+        int status = baseResponse.data!;
+        return status;
+      } else {
+        // 抛出业务异常
+        throw Exception('点赞帖子失败: ${baseResponse.message}');
+      }
+    } on DioException catch (e) {
+      throw Exception('Network error: ${e.message}');
+    }
+  }
+
+  /// 帖子点赞请求
+  Future<int> doFavour(PostFavourRequest postFavourRequest) async {
+    try {
+      final response = await _dioInstance.post(
+        service: HttpConstant.postService,
+        path: '/post/favour',
+        data: postFavourRequest.toJson(),
+      );
+      // 解析整体响应数据
+      final baseResponse = BaseResponse<int>.fromJson(
+        response.data,
+        (json) => json,
+      );
+      if (baseResponse.code == HttpConstant.successCode &&
+          baseResponse.data != null) {
+        int status = baseResponse.data!;
+        return status;
+      } else {
+        // 抛出业务异常
+        throw Exception('收藏帖子失败: ${baseResponse.message}');
       }
     } on DioException catch (e) {
       throw Exception('Network error: ${e.message}');
