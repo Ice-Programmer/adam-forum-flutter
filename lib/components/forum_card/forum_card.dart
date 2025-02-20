@@ -1,7 +1,6 @@
 import 'package:adam_forum_app/components/cache_image.dart';
 import 'package:adam_forum_app/components/animated_icon_button.dart';
 import 'package:adam_forum_app/model/forum_post/post/post_vo.dart';
-import 'package:adam_forum_app/pages/forum/forum_page.dart';
 import 'package:adam_forum_app/utils/time_util.dart';
 import 'package:adam_forum_app/utils/toast_util.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -18,8 +17,15 @@ class ForumCard extends StatefulWidget {
 }
 
 class _ForumCardState extends State<ForumCard> {
-  bool _isLiked = postVo.hasThumb;
-  bool _isStar = postVo.hasFavour;
+  bool _isLiked = false;
+  bool _isStar = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _isLiked = widget.postVo.hasThumb;
+    _isStar = widget.postVo.hasFavour;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -181,6 +187,7 @@ class _ForumCardState extends State<ForumCard> {
             isSelected: _isLiked,
             selectedIcon: Icons.favorite,
             unselectedIcon: Icons.favorite_outline_rounded,
+            unselectedAnimateIcon: Icons.heart_broken_rounded,
             selectedColor: Colors.red,
             unselectedColor: Colors.grey,
             onPressed: () => setState(() {

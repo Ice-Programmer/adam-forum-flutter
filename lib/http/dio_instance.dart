@@ -67,6 +67,7 @@ class DioInstance {
 
   /// post请求
   Future<Response> post({
+    required String service,
     required String path,
     Object? data,
     Map<String, dynamic>? param,
@@ -74,7 +75,7 @@ class DioInstance {
     CancelToken? cancelToken,
   }) async {
     return await _dio.post(
-      path,
+      service + path,
       queryParameters: param,
       data: data,
       cancelToken: cancelToken,

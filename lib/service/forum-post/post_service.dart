@@ -1,27 +1,32 @@
 import 'package:adam_forum_app/http/base_response.dart';
 import 'package:adam_forum_app/http/dio_instance.dart';
 import 'package:adam_forum_app/http/http_constant.dart';
-import 'package:adam_forum_app/model/forum_auth/login/token_vo.dart';
-import 'package:adam_forum_app/model/forum_auth/login/user_password_login_request.dart';
+import 'package:adam_forum_app/model/constant/page_model.dart';
+import 'package:adam_forum_app/model/forum_post/post/post_vo.dart';
+import 'package:adam_forum_app/model/forum_post/post/request/post_query_request.dart';
 import 'package:dio/dio.dart';
 
-class AuthService {
+class PostService {
   final DioInstance _dioInstance = DioInstance.instance();
 
-  Future<TokenVO> userPasswordLogin(UserPasswordLoginRequest request) async {
+  /// 分页获取帖子分页接口
+  Future<PageModel<PostVo>> pagePostVO(
+      PostQueryRequest postQueryRequest) async {
     try {
       final response = await _dioInstance.post(
-        service: HttpConstant.authService,
-        path: '/auth/login/password',
-        data: request.toJson(),
-        options: Options(contentType: 'application/json'),
+        service: HttpConstant.postService,
+        path: '/post/page',
+        data: postQueryRequest.toJson(),
       );
 
-      final baseResponse = BaseResponse.fromJson(
+      // 解析整体响应数据
+      final baseResponse = BaseResponse<PageModel<PostVo>>.fromJson(
         response.data,
-        (json) => TokenVO.fromJson(json),
+        (json) => PageModel<PostVo>.fromJson(
+          json,
+          (postVoJson) => PostVo.fromJson(postVoJson),
+        ),
       );
-
       if (baseResponse.code == HttpConstant.successCode &&
           baseResponse.data != null) {
         return baseResponse.data!;
