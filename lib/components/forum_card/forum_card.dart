@@ -72,6 +72,7 @@ class _ForumCardState extends State<ForumCard> {
     );
   }
 
+  /// 作者信息
   Widget _getAuthorInfo() {
     return Row(
       children: [

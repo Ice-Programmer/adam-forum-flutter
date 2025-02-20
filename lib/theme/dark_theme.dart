@@ -15,5 +15,7 @@ ThemeData darkMode = ThemeData(
     inverseSurface: Colors.black87,
     onInverseSurface: Colors.black26,
     surfaceContainer: Colors.grey.shade900,
+    surfaceContainerLowest: Colors.grey.shade800,
+    surfaceContainerHighest: Colors.grey.shade700,
   ),
 );

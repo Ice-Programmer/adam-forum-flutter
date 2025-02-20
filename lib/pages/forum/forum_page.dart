@@ -1,4 +1,5 @@
 import 'package:adam_forum_app/components/forum_card/forum_card.dart';
+import 'package:adam_forum_app/components/forum_card/forum_card_skeleton.dart';
 import 'package:adam_forum_app/model/constant/page_model.dart';
 import 'package:adam_forum_app/model/forum_post/post/post_vo.dart';
 import 'package:adam_forum_app/model/forum_post/post/request/post_query_request.dart';
@@ -26,9 +27,6 @@ class _ForumPageState extends State<ForumPage> {
 
   final PagingController<int, PostVo> _pagingController =
       PagingController(firstPageKey: 1);
-
-  // 帖子列表
-  List<PostVo> postList = [];
 
   // 是否正在加载
   bool isLoading = true;
@@ -68,7 +66,6 @@ class _ForumPageState extends State<ForumPage> {
       }
       // 更新状态
       setState(() {
-        postList = postVo.records; // 这里假设接口返回的是单个 PostVo，如果是列表，直接赋值即可
         isLoading = false;
       });
     } catch (e) {
@@ -81,42 +78,6 @@ class _ForumPageState extends State<ForumPage> {
       ToastUtils.showErrorMsg('加载帖子数据失败: $e');
     }
   }
-
-  // void _onRefresh() async {
-  //   await _loadPostData();
-  //   _refreshController.refreshCompleted();
-  // }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return SafeArea(
-  //     child: SmartRefresher(
-  //       controller: _refreshController,
-  //       onRefresh: _loadPostData,
-  //       onLoading: _onRefresh,
-  //       child: SingleChildScrollView(
-  //         padding: EdgeInsets.all(30.r),
-  //         child: Column(
-  //           children: [
-  //             const TopBar(),
-  //             20.verticalSpace,
-  //             if (isLoading)
-  //               const Center(child: CircularProgressIndicator())
-  //             else if (postList.isEmpty)
-  //               TextDivider.horizontal(text: const Text('暂无帖子数据'))
-  //             else
-  //               ...postList.map((postVo) {
-  //                 return Padding(
-  //                   padding: EdgeInsets.only(bottom: 20.h),
-  //                   child: ForumCard(postVo: postVo),
-  //                 );
-  //               }),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -148,9 +109,8 @@ class _ForumPageState extends State<ForumPage> {
               noMoreItemsIndicatorBuilder: (context) =>
                   const TextDivider(text: Text("暂无数据")),
               firstPageProgressIndicatorBuilder: (context) =>
-                  Center(child: CircularProgressIndicator()),
-              newPageProgressIndicatorBuilder: (_) =>
-                  Center(child: CircularProgressIndicator()),
+                  _buildCardSkeletons(),
+              newPageProgressIndicatorBuilder: (_) => const ForumCardSkeleton(),
               itemBuilder: (context, post, index) => ForumCard(postVo: post),
             ),
             separatorBuilder: (BuildContext context, int index) =>
@@ -158,6 +118,17 @@ class _ForumPageState extends State<ForumPage> {
           ),
         ),
       ),
+    );
+  }
+
+  /// 骨架屏
+  Widget _buildCardSkeletons() {
+    return Column(
+      children: [
+        const ForumCardSkeleton(),
+        20.verticalSpace,
+        const ForumCardSkeleton(),
+      ],
     );
   }
 }
