@@ -5,6 +5,7 @@ class UserBasicInfoBo {
   int gender;
   String userAvatar;
   String userRole;
+  bool hasFollow;
 
   UserBasicInfoBo({
     required this.id,
@@ -13,6 +14,7 @@ class UserBasicInfoBo {
     required this.gender,
     required this.userAvatar,
     required this.userRole,
+    required this.hasFollow,
   });
 
   factory UserBasicInfoBo.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class UserBasicInfoBo {
       gender: json['gender'],
       userAvatar: json['userAvatar'],
       userRole: json['userRole'],
+      hasFollow: json['hasFollow'],
     );
   }
 
@@ -34,6 +37,7 @@ class UserBasicInfoBo {
       'gender': gender,
       'userAvatar': userAvatar,
       'userRole': userRole,
+      'hasFollow': hasFollow
     };
   }
 }

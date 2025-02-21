@@ -45,6 +45,7 @@ class DioInstance {
   /// get方法，主要获取JSON数据
   /// [path] 请求路径
   Future<Response> get({
+    required String service,
     required String path,
     Object? data,
     Map<String, dynamic>? param,
@@ -52,7 +53,7 @@ class DioInstance {
     CancelToken? cancelToken,
   }) async {
     return _dio.get(
-      path,
+      service + path,
       queryParameters: param,
       data: data,
       cancelToken: cancelToken,

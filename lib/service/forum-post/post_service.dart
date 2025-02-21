@@ -44,6 +44,29 @@ class PostService {
     }
   }
 
+  Future<PostVo> getPostVO(int postId) async {
+    try {
+      final response = await _dioInstance.get(
+        service: HttpConstant.postService,
+        path: '/post/$postId',
+      );
+      // 解析整体响应数据
+      final baseResponse = BaseResponse<PostVo>.fromJson(
+        response.data,
+        (json) => PostVo.fromJson(json),
+      );
+      if (baseResponse.code == HttpConstant.successCode &&
+          baseResponse.data != null) {
+        return baseResponse.data!;
+      } else {
+        // 抛出业务异常
+        throw Exception('点赞帖子失败: ${baseResponse.message}');
+      }
+    } on DioException catch (e) {
+      throw Exception('Network error: ${e.message}');
+    }
+  }
+
   /// 帖子点赞请求
   Future<int> doThumb(PostThumbRequest postThumbRequest) async {
     try {

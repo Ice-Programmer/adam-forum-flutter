@@ -9,6 +9,7 @@ import 'package:adam_forum_app/utils/toast_util.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class ForumCard extends StatefulWidget {
   final PostVo postVo;
@@ -122,63 +123,66 @@ class _ForumCardState extends State<ForumCard> {
 
   /// 卡片主体部分
   Widget _getContentInfo(BuildContext context) {
-    return Container(
-      alignment: Alignment.topLeft,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // 帖子标题
-          Text(
-            widget.postVo.title,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 15.sp,
-            ),
-          ),
-
-          5.verticalSpace,
-
-          // 帖子封面
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10.r),
-            child: CachedNetworkImage(
-              maxHeightDiskCache: 500,
-              imageUrl: widget.postVo.imageList[widget.postVo.coverIndex - 1],
-            ),
-          ),
-
-          5.verticalSpace,
-
-          // 帖子时间地点
-          Row(
-            children: [
-              Text(
-                TimeUtil.format(widget.postVo.createTime),
-                style: TextStyle(
-                  color: Colors.grey.shade500,
-                  fontWeight: FontWeight.w600,
-                ),
+    return InkWell(
+      onTap: () => context.push("/forum/post/detail${widget.postVo.id}"),
+      child: Container(
+        alignment: Alignment.topLeft,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // 帖子标题
+            Text(
+              widget.postVo.title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15.sp,
               ),
-              10.horizontalSpace,
-              Flexible(
-                child: InkWell(
-                  onTap: () {},
-                  child: Text(
-                    widget.postVo.address,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: Color(0xFF5B6A92),
-                      fontWeight: FontWeight.w600,
-                    ),
+            ),
+
+            5.verticalSpace,
+
+            // 帖子封面
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10.r),
+              child: CachedNetworkImage(
+                maxHeightDiskCache: 500,
+                imageUrl: widget.postVo.imageList[widget.postVo.coverIndex - 1],
+              ),
+            ),
+
+            5.verticalSpace,
+
+            // 帖子时间地点
+            Row(
+              children: [
+                Text(
+                  TimeUtil.format(widget.postVo.createTime),
+                  style: TextStyle(
+                    color: Colors.grey.shade500,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-              )
-            ],
-          ),
-        ],
+                10.horizontalSpace,
+                Flexible(
+                  child: InkWell(
+                    onTap: () {},
+                    child: Text(
+                      widget.postVo.address,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: Color(0xFF5B6A92),
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

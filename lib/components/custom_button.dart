@@ -15,6 +15,7 @@ class CustomButton extends StatelessWidget {
   final bool isShadow;
   final FontWeight fontWeight;
   final bool disable;
+  final Color? borderColor;
 
   const CustomButton({
     super.key,
@@ -31,6 +32,7 @@ class CustomButton extends StatelessWidget {
     this.isShadow = true,
     this.fontWeight = FontWeight.bold,
     this.disable = false,
+    this.borderColor,
   });
 
   @override
@@ -41,6 +43,8 @@ class CustomButton extends StatelessWidget {
       decoration: BoxDecoration(
         color: backgroundColor, // 背景颜色
         borderRadius: BorderRadius.circular(borderRadius),
+        border: borderColor != null ? Border.all(color: borderColor!) : null,
+        // border: Border.all(color: borderColor!),
         boxShadow: (isShadow && backgroundColor != null)
             ? [
                 BoxShadow(
@@ -60,8 +64,8 @@ class CustomButton extends StatelessWidget {
         ),
         onPressed: onPressed,
         color: backgroundColor,
-        // elevation: 3,
         elevation: 0,
+        highlightElevation: 0,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

@@ -1,5 +1,6 @@
 import 'package:adam_forum_app/layouts/home_layout.dart';
 import 'package:adam_forum_app/pages/chat/chat_page.dart';
+import 'package:adam_forum_app/pages/forum/forum_detail/forum_detail_page.dart';
 import 'package:adam_forum_app/pages/forum/forum_page.dart';
 import 'package:adam_forum_app/pages/login/login_page.dart';
 import 'package:adam_forum_app/pages/person/person_page.dart';
@@ -60,6 +61,12 @@ final GoRouter router = GoRouter(
               const NoTransitionPage(child: PersonPage()),
         ),
       ],
+    ),
+    GoRoute(
+      path: "/forum/post/detail:postId",
+      name: "帖子详情页",
+      builder: (context, state) =>
+          ForumDetailPage(postId: int.parse(state.pathParameters["postId"]!)),
     ),
   ],
 );
