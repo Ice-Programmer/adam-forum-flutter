@@ -66,7 +66,7 @@ class _ForumDetailPageState extends State<ForumDetailPage> {
             selector: (_, viewModel) => viewModel.postVo,
           ),
 
-          15.verticalSpace,
+          8.verticalSpace,
 
           // 帖子主题内容
           Selector<ForumDetailViewModel, PostVo?>(

@@ -51,6 +51,7 @@ dependencies:
   infinite_scroll_pagination: ^4.1.0
   flutter_swiper_null_safety: ^1.0.2
   photo_view: ^0.15.0
+  flutter_markdown: ^0.7.6+2
 
 dev_dependencies:
   flutter_test:

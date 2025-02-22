@@ -7,7 +7,7 @@ ThemeData darkMode = ThemeData(
   ),
   colorScheme: ColorScheme.dark(
     primary: const Color(0xFF1F41BB),
-    onPrimary: Colors.white,
+    onPrimary: const Color(0xff020202),
     secondary: const Color(0xFFF1F4FF),
     tertiary: Colors.white,
     tertiaryContainer: Colors.grey.shade700,
