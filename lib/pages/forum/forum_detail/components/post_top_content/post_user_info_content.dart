@@ -23,7 +23,7 @@ class _PostUserInfoContentState extends State<PostUserInfoContent> {
     if (widget.postVo == null) {
       return const PostUserInfoContentSkeleton();
     }
-    final bool hasFollow = !widget.postVo!.createUser.hasFollow;
+    final bool hasFollow = widget.postVo!.createUser.hasFollow;
     return Row(
       children: [
         // 用户头像
@@ -65,14 +65,14 @@ class _PostUserInfoContentState extends State<PostUserInfoContent> {
         CustomButton(
           textColor:
               hasFollow ? Theme.of(context).colorScheme.primary : Colors.white,
-          title: hasFollow ? "+ 已关注" : '+ 关注',
+          title: hasFollow ? "已关注" : '+ 关注',
           isShadow: false,
           backgroundColor: hasFollow
               ? Colors.transparent
               : Theme.of(context).colorScheme.primary,
-          borderColor: hasFollow ? Theme.of(context).colorScheme.primary : null,
-          btnWidth: hasFollow ? 100.w : 80.w,
-          borderRadius: hasFollow ? 50.r : 40.r,
+          borderColor: Theme.of(context).colorScheme.primary,
+          btnWidth: hasFollow ? 90.w : 80.w,
+          borderRadius: hasFollow ? 45.r : 40.r,
           btnHeight: 35.h,
           fontSize: 16.sp,
           onPressed: () {
