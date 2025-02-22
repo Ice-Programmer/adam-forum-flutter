@@ -1,4 +1,6 @@
+import 'package:adam_forum_app/components/custom_banner.dart';
 import 'package:adam_forum_app/model/forum_post/post/post_vo.dart';
+import 'package:adam_forum_app/pages/forum/forum_detail/components/post_content/post_content.dart';
 import 'package:adam_forum_app/pages/forum/forum_detail/forum_detail_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,25 +28,6 @@ class _ForumDetailPageState extends State<ForumDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    // return Scaffold(
-    //   appBar: AppBar(
-    //     actions: [
-    //       IconButton(onPressed: () {}, icon: Icon(Icons.star_outline_rounded)),
-    //       IconButton(onPressed: () {}, icon: Icon(Icons.share_rounded)),
-    //       10.horizontalSpace,
-    //     ],
-    //   ),
-    //   body: SafeArea(
-    //     minimum: EdgeInsets.only(left: 30.w, right: 30.w, top: 15.h),
-    //     child: SingleChildScrollView(
-    //       child: Column(
-    //         children: [
-    //           PostUserInfoContent(userBasicInfoBo: postVo?.createUser),
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    // );
     return ChangeNotifierProvider.value(
       value: _viewModel,
       child: Scaffold(
@@ -79,6 +62,16 @@ class _ForumDetailPageState extends State<ForumDetailPage> {
           Selector<ForumDetailViewModel, PostVo?>(
             builder: (context, postVo, child) {
               return PostUserInfoContent(postVo: postVo);
+            },
+            selector: (_, viewModel) => viewModel.postVo,
+          ),
+
+          15.verticalSpace,
+
+          // 帖子主题内容
+          Selector<ForumDetailViewModel, PostVo?>(
+            builder: (context, postVo, child) {
+              return PostContent(postVo: postVo);
             },
             selector: (_, viewModel) => viewModel.postVo,
           ),
