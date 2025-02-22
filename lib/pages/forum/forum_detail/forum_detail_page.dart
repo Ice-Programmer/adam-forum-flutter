@@ -1,4 +1,3 @@
-import 'package:adam_forum_app/components/custom_banner.dart';
 import 'package:adam_forum_app/model/forum_post/post/post_vo.dart';
 import 'package:adam_forum_app/pages/forum/forum_detail/components/post_content/post_content.dart';
 import 'package:adam_forum_app/pages/forum/forum_detail/forum_detail_vm.dart';
@@ -32,6 +31,7 @@ class _ForumDetailPageState extends State<ForumDetailPage> {
       value: _viewModel,
       child: Scaffold(
         appBar: AppBar(
+          elevation: 0,
           actions: [
             // 收藏键
             IconButton(

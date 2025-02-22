@@ -27,7 +27,8 @@ class _ExpandableMarkdownState extends State<ExpandableMarkdown> {
     final bool isTextLong = widget.data.length > widget.maxLength; // 判断文本是否超长
     final String displayText = isExpanded
         ? widget.data // 展开时显示完整内容
-        : "${widget.data.substring(0, widget.maxLength)}..."; // 折叠时显示截取内容
+        : widget.data.substring(
+            0, widget.maxLength.clamp(0, widget.data.length)); // 折叠时显示截取内容
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,11 +60,11 @@ class _ExpandableMarkdownState extends State<ExpandableMarkdown> {
                             Theme.of(context)
                                 .colorScheme
                                 .onPrimary
-                                .withOpacity(0.8), // 模糊区域底部
+                                .withOpacity(0.8),
                             Theme.of(context)
                                 .colorScheme
                                 .onPrimary
-                                .withOpacity(0.1), // 模糊区域顶部
+                                .withOpacity(0.1),
                           ],
                         ),
                       ),
@@ -89,17 +90,17 @@ class _ExpandableMarkdownState extends State<ExpandableMarkdown> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          '收起',
+                          '展开',
                           style: TextStyle(
-                            color: Colors.blue,
+                            color: Theme.of(context).colorScheme.primary,
                             fontSize: 14.sp,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         SizedBox(width: 4.w),
                         Icon(
-                          isExpanded ? Icons.expand_less : Icons.expand_more,
-                          color: Colors.blue,
+                          Icons.expand_more,
+                          color: Theme.of(context).colorScheme.primary,
                           size: 16.sp,
                         ),
                       ],
