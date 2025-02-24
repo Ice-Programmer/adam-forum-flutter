@@ -8,8 +8,8 @@ class PostUserInfoContentSkeleton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!, // 骨架屏基础颜色
-      highlightColor: Colors.grey[100]!, // 骨架屏高亮颜色
+      baseColor: Theme.of(context).colorScheme.surfaceContainerLowest,
+      highlightColor: Theme.of(context).colorScheme.surfaceContainerHighest,
       child: Row(
         children: [
           // 用户头像骨架屏
@@ -18,7 +18,7 @@ class PostUserInfoContentSkeleton extends StatelessWidget {
             height: 50.w,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.r),
-              color: Colors.white, // 占位符颜色
+              color: Theme.of(context).colorScheme.surfaceContainerLowest,
             ),
           ),
 
@@ -40,7 +40,7 @@ class PostUserInfoContentSkeleton extends StatelessWidget {
               Container(
                 width: 80.w,
                 height: 13.h,
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.surfaceContainerLowest,
               ),
             ],
           ),
@@ -53,7 +53,7 @@ class PostUserInfoContentSkeleton extends StatelessWidget {
             height: 35.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50.r),
-              color: Colors.white, // 占位符颜色
+              color: Theme.of(context).colorScheme.surfaceContainerLowest,
             ),
           ),
         ],

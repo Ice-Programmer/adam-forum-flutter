@@ -58,12 +58,10 @@ class _ExpandableMarkdownState extends State<ExpandableMarkdown> {
                           end: Alignment.topCenter,
                           colors: [
                             Theme.of(context)
-                                .colorScheme
-                                .onPrimary
+                                .scaffoldBackgroundColor
                                 .withOpacity(0.8),
                             Theme.of(context)
-                                .colorScheme
-                                .onPrimary
+                                .scaffoldBackgroundColor
                                 .withOpacity(0.1),
                           ],
                         ),
@@ -110,8 +108,6 @@ class _ExpandableMarkdownState extends State<ExpandableMarkdown> {
               ),
           ],
         ),
-
-        10.verticalSpace,
       ],
     );
   }

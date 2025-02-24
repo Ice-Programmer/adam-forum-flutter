@@ -1,4 +1,5 @@
 import 'package:adam_forum_app/model/forum_post/post/post_vo.dart';
+import 'package:adam_forum_app/pages/forum/forum_detail/components/post_bottom_bar/post_bottom_bar.dart';
 import 'package:adam_forum_app/pages/forum/forum_detail/components/post_content/post_content.dart';
 import 'package:adam_forum_app/pages/forum/forum_detail/forum_detail_vm.dart';
 import 'package:flutter/material.dart';
@@ -34,21 +35,32 @@ class _ForumDetailPageState extends State<ForumDetailPage> {
           elevation: 0,
           actions: [
             // 收藏键
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.star_outline_rounded),
-            ),
             // 分享键
             IconButton(
               onPressed: () {},
               icon: const Icon(Icons.share_rounded),
+              color: Colors.grey.shade600,
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.more_vert_outlined),
+              color: Colors.grey.shade600,
             ),
             10.horizontalSpace,
           ],
         ),
         body: SafeArea(
-          minimum: EdgeInsets.only(left: 30.w, right: 30.w, top: 15.h),
+          minimum: EdgeInsets.symmetric(horizontal: 30.w),
+          bottom: false,
           child: _getBodyUI(),
+        ),
+        bottomNavigationBar: Selector<ForumDetailViewModel, PostVo?>(
+          builder: (context, postVo, child) {
+            return postVo != null
+                ? PostBottomBar(postVo: postVo)
+                : const SizedBox.shrink();
+          },
+          selector: (_, viewModel) => viewModel.postVo,
         ),
       ),
     );
@@ -74,6 +86,12 @@ class _ForumDetailPageState extends State<ForumDetailPage> {
               return PostContent(postVo: postVo);
             },
             selector: (_, viewModel) => viewModel.postVo,
+          ),
+
+          6.verticalSpace,
+
+          Divider(
+            color: Colors.grey.shade600,
           ),
         ],
       ),
