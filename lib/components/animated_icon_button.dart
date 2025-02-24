@@ -11,6 +11,7 @@ class AnimatedIconButton extends StatefulWidget {
   final VoidCallback onPressed;
   final double iconSize;
   final bool applyRotationOnDeselect;
+  final double startY;
 
   const AnimatedIconButton({
     super.key,
@@ -23,6 +24,7 @@ class AnimatedIconButton extends StatefulWidget {
     this.iconSize = 32,
     this.applyRotationOnDeselect = false,
     this.unselectedAnimateIcon,
+    this.startY = -30,
   });
 
   @override
@@ -64,7 +66,7 @@ class AnimatedIconButtonState extends State<AnimatedIconButton>
         final entry = OverlayEntry(
           builder: (context) => Particle(
             startOffset:
-                buttonPosition + Offset(buttonSize.width / 2 - 12, -30),
+                buttonPosition + Offset(buttonSize.width / 2 - 12, widget.startY),
             icon: icon,
             color: color,
             shouldRotate: applyRotation,

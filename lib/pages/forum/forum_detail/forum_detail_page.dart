@@ -1,5 +1,7 @@
 import 'package:adam_forum_app/model/forum_post/post/post_vo.dart';
 import 'package:adam_forum_app/pages/forum/forum_detail/components/post_bottom_bar/post_bottom_bar.dart';
+import 'package:adam_forum_app/pages/forum/forum_detail/components/post_comment/post_comment_content.dart';
+import 'package:adam_forum_app/pages/forum/forum_detail/components/post_comment/post_comment_content_skeleton.dart';
 import 'package:adam_forum_app/pages/forum/forum_detail/components/post_content/post_content.dart';
 import 'package:adam_forum_app/pages/forum/forum_detail/forum_detail_vm.dart';
 import 'package:flutter/material.dart';
@@ -67,6 +69,8 @@ class _ForumDetailPageState extends State<ForumDetailPage> {
   }
 
   Widget _getBodyUI() {
+    final bool isDark =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -91,8 +95,21 @@ class _ForumDetailPageState extends State<ForumDetailPage> {
           6.verticalSpace,
 
           Divider(
-            color: Colors.grey.shade600,
+            color: isDark ? Colors.grey.shade900 : Colors.grey.shade200,
           ),
+
+          6.verticalSpace,
+
+          // 帖子主题内容
+          Selector<ForumDetailViewModel, PostVo?>(
+            builder: (context, postVo, child) {
+              if (postVo == null) {
+                return const PostCommentContentSkeleton();
+              }
+              return PostCommentContent(postVo: postVo);
+            },
+            selector: (_, viewModel) => viewModel.postVo,
+          )
         ],
       ),
     );
